@@ -34,65 +34,67 @@
     </div>
     <div class="container" id="#">
       <h1 class="text-center mt-2 mb-4">Inicio</h1>
-      <img id="banner" class="img-fluid" src="../static/numerics.jpg" />
+      <img id="banner" class="img-fluid" src="../static/mechanics.jpg" />
       <h2 class="text-center mt-2 mb-4">
-        Bienvenid@ a la calculadora de distintos métodos numéricos.
+        Bienvenid@ a la calculadora de métodos numéricos aplicados a la mecánica de fracturas
       </h2>
       <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-        porttitor nisi quis laoreet commodo. Cras sollicitudin justo facilisis
-        erat laoreet congue. Praesent suscipit luctus orci. Aliquam commodo
-        accumsan ipsum ut efficitur. Phasellus rhoncus ullamcorper ultricies.
-        Praesent ut leo tristique, efficitur orci id, efficitur nisi.
-        Suspendisse nibh dui, facilisis at ante sit amet, accumsan imperdiet
-        enim. Aenean sollicitudin orci vel nisi rhoncus, at malesuada enim
-        sollicitudin. Morbi rhoncus nisl vitae lacus aliquam, eget mollis tellus
-        vehicula. Morbi et congue dui. Mauris pellentesque nisi eget placerat
-        feugiat. Sed consequat erat ut ultrices elementum.
+        Esta aplicación permite calcular la longitud de una grieta en materiales sometidos a esfuerzos, utilizando el método de punto fijo y fórmulas de la mecánica de fracturas. Se ha diseñado para que el usuario pueda ingresar los valores de tenacidad (K), esfuerzo aplicado (σ), ancho de la probeta (W) y una estimación inicial de la longitud de la grieta (a₀), y obtener de forma automatizada la solución aproximada del problema.
+      </p>
+      <p class="lead">
+        Además, se visualiza la convergencia del método paso a paso mediante una gráfica interactiva, lo que facilita la comprensión del proceso iterativo. Este proyecto fue desarrollado como parte del curso de Métodos Numéricos, integrando programación en Python, visualización de datos y conceptos de ingeniería de materiales.
       </p>
     </div>
     <div class="container" id="mfracturas">
-      <h2 class="text-center mt-2 mb-4">
-        Calculadora de mecánica de fracturas.
-      </h2>
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus
-        mauris ac erat tincidunt, quis maximus felis mollis. Aenean molestie,
-        nisi id efficitur consequat, nunc sem condimentum ex, et lobortis arcu
-        velit et erat. Vestibulum malesuada, enim eget eleifend venenatis, velit
-        ex cursus elit, vel mattis justo leo vel dui. Fusce pharetra libero
-        arcu, nec euismod nunc efficitur quis. Mauris iaculis ultricies felis,
-        vel posuere neque gravida eu. Vestibulum suscipit blandit erat, nec
-        feugiat metus. Duis placerat tortor magna, ac ornare neque auctor eget.
-        Morbi feugiat tempor elit, non tempus elit scelerisque quis. Nulla
-        pellentesque erat quis urna faucibus commodo. Duis sed scelerisque erat.
-        Nunc molestie neque quis est aliquet faucibus. Suspendisse quis vehicula
-        dolor, sit amet interdum ex. Quisque in sollicitudin urna, eu eleifend
-        nunc. Sed a velit a nisi accumsan porta sit amet in tortor. Nulla a
-        tempor velit. Quisque euismod, erat at mollis eleifend, turpis felis
-        interdum leo, eget ultricies ipsum dui vel purus. Duis efficitur, tortor
-        ut porta molestie, nibh velit lobortis enim, nec semper orci ante at
-        metus. Pellentesque dui sem, vehicula in sem at, volutpat tempus felis.
-        Donec efficitur enim at augue placerat rhoncus. Duis convallis mauris at
-        nunc consectetur molestie. Interdum et malesuada fames ac ante ipsum
-        primis in faucibus. Aliquam sem dui, tempus nec pellentesque eu,
-        vulputate non dolor.
-      </p>
-    </div>
+      <h2 class="text-center mt-2 mb-4">Calculadora - Punto Fijo</h2>
+      <form action="/calcular" method="post" class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">K (MPa√m)</label>
+          <input type="number" step="any" class="form-control" name="K" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">σ (MPa)</label>
+          <input type="number" step="any" class="form-control" name="sigma" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">W (mm)</label>
+          <input type="number" step="any" class="form-control" name="W" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">a₀ inicial (mm)</label>
+          <input type="number" step="any" class="form-control" name="a0" required>
+        </div>
+        <div class="d-grid gap-2 mt-3">
+          <button type="submit" class="btn btn-success">Calcular a</button>
+        </div>
+      </form>
+
+      {% if resultado is not none %}
+      <div class="alert alert-info text-center mt-4">
+        <strong>Resultado:</strong> Longitud de grieta estimada (a) = {{ resultado }} mm
+      </div>
+      {% endif %}
+
+      {% if imagen %}
+  <div class="text-center">
+    <img src="{{ url_for('static', filename=imagen) }}" alt="Iteraciones" class="img-fluid mt-3" style="max-width: 600px;">
+  </div>
+{% endif %}
+
     <div class="container" id="acerca">
       <h2 class="text-center mt-2 mb-4">Acerca de</h2>
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-        porttitor nisi quis laoreet commodo. Cras sollicitudin justo facilisis
-        erat laoreet congue. Praesent suscipit luctus orci. Aliquam commodo
-        accumsan ipsum ut efficitur. Phasellus rhoncus ullamcorper ultricies.
-        Praesent ut leo tristique, efficitur orci id, efficitur nisi.
-        Suspendisse nibh dui, facilisis at ante sit amet, accumsan imperdiet
-        enim. Aenean sollicitudin orci vel nisi rhoncus, at malesuada enim
-        sollicitudin. Morbi rhoncus nisl vitae lacus aliquam, eget mollis tellus
-        vehicula. Morbi et congue dui. Mauris pellentesque nisi eget placerat
-        feugiat. Sed consequat erat ut ultrices elementum.
-      </p>
+        <p class="lead">
+          Esta calculadora fue desarrollada como parte del proyecto final de la asignatura de Modelamiento, con el objetivo de aplicar el método de punto fijo al análisis de grietas en materiales, dentro del contexto de la mecánica de fracturas.
+        </p>
+        <p class="lead">
+          La implementación fue realizada completamente en Python y permite visualizar la convergencia del método mediante una gráfica interactiva.
+        </p>
+        <p class="lead">
+          <strong>Integrantes del grupo:</strong><br>
+          • Maria Vargas<br>
+          • Marlene Guevara<br>
+          • Edinson Serna
+        </p>
     </div>
   </body>
 </html>
